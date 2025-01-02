@@ -1,7 +1,7 @@
 {
   "module": {
     "stackgen_9fd33e04-081f-4256-94d0-18faaf1831de": {
-      "assume_role_policy": null,
+      "assume_role_policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"AllowKmsAccess\",\n      \"Action\": [\n        \"kms:Decrypt\",\n        \"kms:Encrypt\",\n        \"kms:GenerateDataKey\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.stackgen_c2d99b1a-d701-5ab3-9e0c-a935c463cec4.kms_arn}\"\n      ]\n    },\n    {\n      \"Sid\": \"tododemoappquarkusstackgeninitS3Bucketc2d99b1ad7015ab39e0ca935c463cec4\",\n      \"Action\": [\n        \"s3:PutObject\",\n        \"s3:PutObjectAcl\",\n        \"s3:PutObjectTagging\",\n        \"s3:GetObject\",\n        \"s3:GetObjectVersion\",\n        \"s3:ListBucket\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.stackgen_c2d99b1a-d701-5ab3-9e0c-a935c463cec4.arn}\",\n        \"${module.stackgen_c2d99b1a-d701-5ab3-9e0c-a935c463cec4.arn}/*\"\n      ]\n    }\n  ]\n}",
       "description": null,
       "force_detach_policies": true,
       "inline_policy": [],
