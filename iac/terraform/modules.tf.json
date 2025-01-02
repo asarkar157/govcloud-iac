@@ -1,0 +1,15 @@
+{
+  "module": {
+    "stackgen_9fd33e04-081f-4256-94d0-18faaf1831de": {
+      "assume_role_policy": null,
+      "description": null,
+      "force_detach_policies": true,
+      "inline_policy": [],
+      "name": "test-role",
+      "source": "./modules/aws_iam_role",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
+    }
+  }
+}
