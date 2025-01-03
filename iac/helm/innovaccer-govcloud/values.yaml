@@ -1,0 +1,50 @@
+helm_hpa_48373bdd87805913bbd572d2b5312588:
+    enabled: true
+    max_replicas: 2
+    min_replicas: 1
+    name: test
+    target_cpu_utilization_percentage: 50
+    target_memory_utilization_percentage: 50
+    workload_kind: Deployment
+    workload_name: test
+helm_ingress_b39c69a7d64a5be3ba8536d4875ad794:
+    annotations:
+        kubernetes.io/ingress.allow-http: "false"
+    class_name: test
+    default_backend_name: test
+    default_backend_port: 80
+    labels:
+        service: myapp
+    rules: []
+    tls: ""
+helm_service_6ab8f86d3f6452758426f6fd9158cdc3:
+    name: test
+    port: 80
+    protocol: TCP
+    selector_labels:
+        service: myapp
+    target_port: 80
+    type: ClusterIP
+helm_service_account_f46b7f928fbc5a588f9982a7b4538b99:
+    annotations: {}
+    automount: false
+    labels: {}
+    name: test
+helm_workload_044246e1b24552a58810b60451f4b684:
+    env: {}
+    env_from_config: []
+    env_from_secret: []
+    image: test
+    image_pull_policy: Always
+    image_pull_secret: null
+    image_tag: test
+    kind: Deployment
+    labels:
+        service: myapp
+    name: test
+    port: 80
+    protocol: TCP
+    replicas: 1
+    service_account: test
+    volume_mounts: []
+    volumes: []
