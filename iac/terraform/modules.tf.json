@@ -1,15 +1,34 @@
 {
   "module": {
-    "stackgen_9fd33e04-081f-4256-94d0-18faaf1831de": {
-      "assume_role_policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"AllowKmsAccess\",\n      \"Action\": [\n        \"kms:Decrypt\",\n        \"kms:Encrypt\",\n        \"kms:GenerateDataKey\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.stackgen_c2d99b1a-d701-5ab3-9e0c-a935c463cec4.kms_arn}\"\n      ]\n    },\n    {\n      \"Sid\": \"tododemoappquarkusstackgeninitS3Bucketc2d99b1ad7015ab39e0ca935c463cec4\",\n      \"Action\": [\n        \"s3:PutObject\",\n        \"s3:PutObjectAcl\",\n        \"s3:PutObjectTagging\",\n        \"s3:GetObject\",\n        \"s3:GetObjectVersion\",\n        \"s3:ListBucket\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.stackgen_c2d99b1a-d701-5ab3-9e0c-a935c463cec4.arn}\",\n        \"${module.stackgen_c2d99b1a-d701-5ab3-9e0c-a935c463cec4.arn}/*\"\n      ]\n    }\n  ]\n}",
+    "stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81": {
+      "block_public_access": true,
+      "bucket_name": "s3-govcloud-stackgen-poc",
+      "bucket_policy": "",
+      "enable_versioning": true,
+      "enable_website_configuration": false,
+      "source": "./modules/aws_s3",
+      "sse_algorithm": "aws:kms",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      },
+      "website_error_document": "404.html",
+      "website_index_document": "index.html"
+    },
+    "stackgen_43c70e0a-237a-41ab-9d80-adaed265e4d7": {
+      "name": "Reader-stackgen_9bc7a0",
+      "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"1ccf7f84ccf1477586513c6d823eab810\",\n      \"Action\": [\n        \"s3:Get*\",\n        \"s3:List*\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.arn}\",\n        \"${module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.arn}/*\"\n      ]\n    }\n  ]\n}",
+      "role": "${module.stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a.name}",
+      "role_type": "Reader",
+      "source": "./modules/aws_iam_role_policy"
+    },
+    "stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a": {
+      "assume_role_policy": "{\n\t\t\"Version\": \"2012-10-17\",\n\t\t\"Statement\":{\n\t\t\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\t\t\"Effect\": \"Allow\",\n\t\t\t\t\"Principal\": {\n\t\t\t\t\t\"Service\": \"eks.amazonaws.com\"\n\t\t\t\t}\n\t\t\t}\n\t}",
       "description": null,
       "force_detach_policies": true,
       "inline_policy": [],
-      "name": "test-role",
+      "name": "stackgen_44eeb0-role",
       "source": "./modules/aws_iam_role",
-      "tags": {
-        "appstack": "innovaccer-govcloud"
-      }
+      "tags": null
     }
   }
 }
