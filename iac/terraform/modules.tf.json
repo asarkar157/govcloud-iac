@@ -21,6 +21,58 @@
       "role_type": "Reader",
       "source": "./modules/aws_iam_role_policy"
     },
+    "stackgen_67b7478f-d844-420f-9775-b5e5838418f3": {
+      "addon_name": "kube-proxy",
+      "addon_version": "",
+      "cluster_name": "${module.stackgen_a803de6a-98d5-4ee3-85ed-ba6c4eec0203.id}",
+      "resolve_conflicts_on_create": "OVERWRITE",
+      "service_account_role_arn": "",
+      "source": "./modules/aws_eks_addon",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
+    },
+    "stackgen_a2453fd3-0338-4ea2-9242-09bfae612144": {
+      "assume_role_policy": null,
+      "description": null,
+      "force_detach_policies": true,
+      "inline_policy": [
+        {
+          "name": "EKSPolicy",
+          "policy": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:CreateNetworkInterface\",\n                \"ec2:DeleteNetworkInterface\",\n                \"ec2:DetachNetworkInterface\",\n                \"ec2:ModifyNetworkInterfaceAttribute\",\n                \"ec2:CreateSecurityGroup\",\n                \"ec2:CreateNetworkInterfacePermission\"\n            ],\n            \"Resource\": \"*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:DescribeAccountAttributes\",\n                \"ec2:DescribeAddresses\",\n                \"ec2:DescribeAvailabilityZones\",\n                \"ec2:DescribeCoipPools\",\n                \"ec2:DescribeInstances\",\n                \"ec2:DescribeInstanceTypeOfferings\",\n                \"ec2:DescribeInstanceTypes\",\n                \"ec2:DescribeInternetGateways\",\n                \"ec2:DescribeLaunchTemplates\",\n                \"ec2:DescribeNetworkInterfaces\",\n                \"ec2:DescribeSecurityGroups\",\n                \"ec2:DescribeSnapshots\",\n                \"ec2:DescribeSpotPriceHistory\",\n                \"ec2:DescribeSubnets\",\n                \"ec2:DescribeTags\",\n                \"ec2:DescribeVolumes\",\n                \"ec2:DescribeVolumesModifications\",\n                \"ec2:DescribeVpcPeeringConnections\",\n                \"ec2:DescribeVpcs\",\n                \"ec2:GetCoipPoolUsage\",\n                \"ec2:GetSecurityGroupsForVpc\",\n                \"eks:DescribeCluster\",\n                \"elasticloadbalancing:DescribeListenerAttributes\",\n                \"elasticloadbalancing:DescribeListenerCertificates\",\n                \"elasticloadbalancing:DescribeListeners\",\n                \"elasticloadbalancing:DescribeLoadBalancerAttributes\",\n                \"elasticloadbalancing:DescribeLoadBalancers\",\n                \"elasticloadbalancing:DescribeRules\",\n                \"elasticloadbalancing:DescribeSSLPolicies\",\n                \"elasticloadbalancing:DescribeTags\",\n                \"elasticloadbalancing:DescribeTargetGroupAttributes\",\n                \"elasticloadbalancing:DescribeTargetGroups\",\n                \"elasticloadbalancing:DescribeTargetHealth\",\n                \"elasticloadbalancing:DescribeTrustStores\",\n                \"iam:ListAttachedRolePolicies\",\n                \"pricing:GetProducts\",\n                \"shield:GetSubscriptionState\",\n                \"tag:GetResources\"\n            ],\n            \"Resource\": \"*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:DeleteSecurityGroup\",\n                \"ec2:RevokeSecurityGroupIngress\",\n                \"ec2:AuthorizeSecurityGroupIngress\"\n            ],\n            \"Resource\": \"arn:aws-us-gov:ec2:*:*:security-group/*\",\n            \"Condition\": {\n                \"StringLike\": {\n                    \"ec2:ResourceTag/Name\": \"eks-cluster-sg*\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:CreateTags\",\n                \"ec2:DeleteTags\"\n            ],\n            \"Resource\": [\n                \"arn:aws-us-gov:ec2:*:*:vpc/*\",\n                \"arn:aws-us-gov:ec2:*:*:subnet/*\",\n                \"arn:aws-us-gov:ec2:*:*:network-interface/*\",\n                \"arn:aws-us-gov:ec2:*:*:security-group/*\"\n            ],\n            \"Condition\": {\n                \"ForAnyValue:StringLike\": {\n                    \"aws:TagKeys\": [\n                        \"kubernetes.io/cluster/*\"\n                    ]\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:CreateTags\",\n                \"ec2:DeleteTags\"\n            ],\n            \"Resource\": [\n                \"arn:aws-us-gov:ec2:*:*:security-group/*\",\n                \"arn:aws-us-gov:ec2:*:*:network-interface/*\"\n            ],\n            \"Condition\": {\n                \"StringLike\": {\n                    \"aws:RequestTag/Name\": \"eks-cluster-*\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": \"route53:AssociateVPCWithHostedZone\",\n            \"Resource\": \"arn:aws-us-gov:route53:::hostedzone/*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": \"logs:CreateLogGroup\",\n            \"Resource\": \"arn:aws-us-gov:logs:*:*:log-group:/aws/eks/*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"logs:CreateLogStream\",\n                \"logs:DescribeLogStreams\"\n            ],\n            \"Resource\": \"arn:aws-us-gov:logs:*:*:log-group:/aws/eks/*:*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": \"logs:PutLogEvents\",\n            \"Resource\": \"arn:aws-us-gov:logs:*:*:log-group:/aws/eks/*:*:*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": \"cloudwatch:PutMetricData\",\n            \"Resource\": \"*\",\n            \"Condition\": {\n                \"StringLike\": {\n                    \"cloudwatch:namespace\": \"AWS/EKS\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"eks:CreateAccessEntry\",\n                \"eks:DeleteAccessEntry\"\n            ],\n            \"Resource\": \"*\",\n            \"Condition\": {\n                \"StringEquals\": {\n                    \"eks:accessEntryType\": \"STANDARD\"\n                },\n                \"ArnLike\": {\n                    \"eks:principalArn\": \"arn:aws-us-gov:iam::*:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"eks:ListAssociatedAccessPolicies\"\n            ],\n            \"Resource\": \"arn:aws-us-gov:eks:*:*:access-entry/*/role/${aws:PrincipalAccount}/AWSServiceRoleForAmazonEKS/*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"eks:AssociateAccessPolicy\",\n                \"eks:DisassociateAccessPolicy\"\n            ],\n            \"Resource\": \"arn:aws-us-gov:eks:*:*:access-entry/*/role/${aws:PrincipalAccount}/AWSServiceRoleForAmazonEKS/*\",\n            \"Condition\": {\n                \"StringEquals\": {\n                    \"eks:policyArn\": [\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSComputePolicy\",\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSComputeClusterPolicy\",\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSNetworkingPolicy\",\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSNetworkingClusterPolicy\",\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSLoadBalancingPolicy\",\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSLoadBalancingClusterPolicy\",\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSBlockStoragePolicy\",\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSBlockStorageClusterPolicy\",\n                        \"arn:aws-us-gov:eks::aws:cluster-access-policy/AmazonEKSHybridPolicy\"\n                    ]\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:DeleteNetworkInterface\"\n            ],\n            \"Resource\": \"*\",\n            \"Condition\": {\n                \"StringLike\": {\n                    \"aws:ResourceTag/eks:eks-cluster-name\": \"*\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": \"eks:DescribeAccessEntry\",\n            \"Resource\": \"*\",\n            \"Condition\": {\n                \"StringEquals\": {\n                    \"eks:accessEntryType\": \"EC2\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": \"events:PutRule\",\n            \"Resource\": \"arn:aws-us-gov:events:*:*:rule/EKS*\",\n            \"Condition\": {\n                \"ForAllValues:StringEquals\": {\n                    \"events:source\": [\n                        \"aws.ec2\",\n                        \"aws.health\"\n                    ]\n                },\n                \"StringEquals\": {\n                    \"events:ManagedBy\": [\n                        \"eks.amazonaws.com\"\n                    ]\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": \"events:PutTargets\",\n            \"Resource\": \"arn:aws-us-gov:events:*:*:rule/EKS*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"iam:GetInstanceProfile\",\n                \"iam:CreateInstanceProfile\",\n                \"iam:DeleteInstanceProfile\",\n                \"iam:RemoveRoleFromInstanceProfile\"\n            ],\n            \"Resource\": \"arn:aws-us-gov:iam::*:instance-profile/eks*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:DeleteLaunchTemplate\",\n                \"ec2:TerminateInstances\"\n            ],\n            \"Resource\": \"*\",\n            \"Condition\": {\n                \"StringLike\": {\n                    \"aws:ResourceTag/eks:eks-cluster-name\": \"*\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:DeleteVolume\"\n            ],\n            \"Resource\": \"*\",\n            \"Condition\": {\n                \"StringLike\": {\n                    \"aws:ResourceTag/eks:eks-cluster-name\": \"*\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:DeleteSnapshot\"\n            ],\n            \"Resource\": \"*\",\n            \"Condition\": {\n                \"StringLike\": {\n                    \"aws:ResourceTag/eks:eks-cluster-name\": \"*\"\n                }\n            }\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"elasticloadbalancing:DeleteListener\",\n                \"elasticloadbalancing:DeleteRule\",\n                \"elasticloadbalancing:DeregisterTargets\",\n                \"elasticloadbalancing:DeleteLoadBalancer\",\n                \"elasticloadbalancing:DeleteTargetGroup\",\n                \"ec2:DeleteSecurityGroup\",\n                \"shield:DescribeProtection\"\n            ],\n            \"Resource\": \"*\",\n            \"Condition\": {\n                \"StringLike\": {\n                    \"aws:ResourceTag/eks:eks-cluster-name\": \"*\"\n                }\n            }\n        }\n    ]\n}"
+        }
+      ],
+      "name": "EKS IAM Role",
+      "source": "./modules/aws_iam_role",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
+    },
+    "stackgen_a803de6a-98d5-4ee3-85ed-ba6c4eec0203": {
+      "access_config": [],
+      "eks_version": null,
+      "encryption_provider_key_arn": null,
+      "endpoint_private_access": false,
+      "endpoint_public_access": true,
+      "kubernetes_network_config": [],
+      "name": "${var.name}",
+      "outpost_config": [],
+      "public_access_cidrs": [
+        "0.0.0.0/0"
+      ],
+      "region": "${var.region}",
+      "role_arn": "${module.stackgen_a2453fd3-0338-4ea2-9242-09bfae612144.arn}",
+      "security_group_ids": [],
+      "source": "./modules/aws_eks",
+      "subnet_ids": [
+        "subnet-0cf96fd8e52dc1b6a",
+        "subnet-056cd9544f0986356",
+        "subnet-00ad1b6629e548eb9"
+      ],
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
+    },
     "stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a": {
       "assume_role_policy": "{\n\t\t\"Version\": \"2012-10-17\",\n\t\t\"Statement\":{\n\t\t\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\t\t\"Effect\": \"Allow\",\n\t\t\t\t\"Principal\": {\n\t\t\t\t\t\"Service\": \"eks.amazonaws.com\"\n\t\t\t\t}\n\t\t\t}\n\t}",
       "description": null,
@@ -29,6 +81,17 @@
       "name": "stackgen_44eeb0-role",
       "source": "./modules/aws_iam_role",
       "tags": null
+    },
+    "stackgen_e84b91aa-f0cb-4370-ab1e-d1b26934b0f0": {
+      "addon_name": "coredns",
+      "addon_version": "",
+      "cluster_name": "${module.stackgen_a803de6a-98d5-4ee3-85ed-ba6c4eec0203.id}",
+      "resolve_conflicts_on_create": "OVERWRITE",
+      "service_account_role_arn": "",
+      "source": "./modules/aws_eks_addon",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
     }
   }
 }
