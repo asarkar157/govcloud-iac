@@ -21,6 +21,47 @@
       "role_type": "Reader",
       "source": "./modules/aws_iam_role_policy"
     },
+    "stackgen_a2453fd3-0338-4ea2-9242-09bfae612144": {
+      "assume_role_policy": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n                \"Service\": \"eks.amazonaws.com\"\n            },\n            \"Action\": \"sts:AssumeRole\"\n        }\n    ]\n}",
+      "description": null,
+      "force_detach_policies": true,
+      "inline_policy": [
+        {
+          "name": "EKS minimum",
+          "policy": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"eks:CreateCluster\",\n                \"eks:DescribeCluster\",\n                \"eks:DeleteCluster\",\n                \"eks:UpdateClusterConfig\",\n                \"eks:UpdateClusterVersion\"\n            ],\n            \"Resource\": \"arn:aws-us-gov:eks:us-gov-west-1:320367854157:cluster/platform-dev\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:DescribeSubnets\",\n                \"ec2:DescribeSecurityGroups\",\n                \"ec2:DescribeRouteTables\",\n                \"ec2:DescribeVpcs\",\n                \"ec2:CreateNetworkInterface\",\n                \"ec2:DescribeInstances\",\n                \"ec2:DescribeNetworkInterfaces\",\n                \"ec2:DeleteNetworkInterface\",\n                \"ec2:AttachVolume\",\n                \"ec2:DetachVolume\"\n            ],\n            \"Resource\": \"*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"elasticloadbalancing:DescribeLoadBalancers\",\n                \"elasticloadbalancing:DescribeTargetGroups\",\n                \"elasticloadbalancing:DescribeListeners\",\n                \"elasticloadbalancing:DescribeRules\",\n                \"elasticloadbalancing:RegisterTargets\",\n                \"elasticloadbalancing:DeregisterTargets\"\n            ],\n            \"Resource\": \"*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"autoscaling:DescribeAutoScalingGroups\",\n                \"autoscaling:DescribeAutoScalingInstances\",\n                \"autoscaling:DescribeLaunchConfigurations\",\n                \"autoscaling:DescribeTags\"\n            ],\n            \"Resource\": \"*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"cloudwatch:PutMetricData\",\n                \"cloudwatch:GetMetricData\",\n                \"cloudwatch:GetMetricStatistics\",\n                \"cloudwatch:ListMetrics\"\n            ],\n            \"Resource\": \"*\"\n        }\n    ]\n}"
+        }
+      ],
+      "name": "EKS IAM Role",
+      "source": "./modules/aws_iam_role",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
+    },
+    "stackgen_a803de6a-98d5-4ee3-85ed-ba6c4eec0203": {
+      "access_config": [],
+      "eks_version": null,
+      "encryption_provider_key_arn": null,
+      "endpoint_private_access": false,
+      "endpoint_public_access": true,
+      "kubernetes_network_config": [],
+      "name": "${var.name}",
+      "outpost_config": [],
+      "public_access_cidrs": [
+        "0.0.0.0/0"
+      ],
+      "region": "${var.region}",
+      "role_arn": "${module.stackgen_a2453fd3-0338-4ea2-9242-09bfae612144.arn}",
+      "security_group_ids": [],
+      "source": "./modules/aws_eks",
+      "subnet_ids": [
+        "subnet-0cf96fd8e52dc1b6a",
+        "subnet-056cd9544f0986356",
+        "subnet-00ad1b6629e548eb9"
+      ],
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
+    },
     "stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a": {
       "assume_role_policy": "{\n\t\t\"Version\": \"2012-10-17\",\n\t\t\"Statement\":{\n\t\t\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\t\t\"Effect\": \"Allow\",\n\t\t\t\t\"Principal\": {\n\t\t\t\t\t\"Service\": \"eks.amazonaws.com\"\n\t\t\t\t}\n\t\t\t}\n\t}",
       "description": null,
