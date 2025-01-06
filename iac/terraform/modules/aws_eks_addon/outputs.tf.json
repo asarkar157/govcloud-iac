@@ -1,0 +1,29 @@
+{
+  "output": {
+    "arn": {
+      "description": "Amazon Resource Name (ARN) of the EKS add-on.",
+      "sensitive": false,
+      "value": "${aws_eks_addon.addon.arn}"
+    },
+    "created_at": {
+      "description": "Date and time in RFC3339 format that the EKS add-on was created.",
+      "sensitive": false,
+      "value": "${aws_eks_addon.addon.created_at}"
+    },
+    "id": {
+      "description": "EKS Cluster name and EKS Addon name separated by a colon (:).",
+      "sensitive": false,
+      "value": "${aws_eks_addon.addon.cluster_name}:${aws_eks_addon.addon.addon_name}"
+    },
+    "modified_at": {
+      "description": "Date and time in RFC3339 format that the EKS add-on was updated.",
+      "sensitive": false,
+      "value": "${aws_eks_addon.addon.modified_at}"
+    },
+    "status": {
+      "description": "Status of the EKS add-on.",
+      "sensitive": false,
+      "value": "${aws_eks_addon.addon.status}"
+    }
+  }
+}
