@@ -14,12 +14,47 @@
       "website_error_document": "404.html",
       "website_index_document": "index.html"
     },
+    "stackgen_1f0a300c-f0c6-4a6a-8ad7-9aa0319560ce": {
+      "name": "Reader-stackgen_e00dcd",
+      "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"5d5146354d404b1f9f494b1f8f1a08280\",\n      \"Action\": [\n        \"rds:DescribeDBInstances\",\n        \"rds:DescribeDBSnapshots\",\n        \"rds:DescribeDBClusters\",\n        \"rds:DescribeDBSubnetGroups\",\n        \"rds:DescribeDBClusterSnapshots\",\n        \"rds:DescribeDBParameterGroups\",\n        \"rds:DescribeDBParameters\",\n        \"rds:DescribeDBEngineVersions\",\n        \"rds:DescribeEvents\",\n        \"rds:DescribeEventSubscriptions\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.stackgen_5d514635-4d40-4b1f-9f49-4b1f8f1a0828.arn}\"\n      ]\n    }\n  ]\n}",
+      "role": "${module.stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a.name}",
+      "role_type": "Reader",
+      "source": "./modules/aws_iam_role_policy"
+    },
     "stackgen_43c70e0a-237a-41ab-9d80-adaed265e4d7": {
       "name": "Reader-stackgen_9bc7a0",
       "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"1ccf7f84ccf1477586513c6d823eab810\",\n      \"Action\": [\n        \"s3:Get*\",\n        \"s3:List*\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.arn}\",\n        \"${module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.arn}/*\"\n      ]\n    }\n  ]\n}",
       "role": "${module.stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a.name}",
       "role_type": "Reader",
       "source": "./modules/aws_iam_role_policy"
+    },
+    "stackgen_5d514635-4d40-4b1f-9f49-4b1f8f1a0828": {
+      "cluster_identifier": "",
+      "rds_auto_pause": true,
+      "rds_availability_zones": [
+        "us-east-1a",
+        "us-east-1b"
+      ],
+      "rds_backup_retention_period": 9,
+      "rds_database_name": "platform-DB-dev",
+      "rds_db_subnet_group_name": "default",
+      "rds_engine": "postgres",
+      "rds_engine_mode": "provisioned",
+      "rds_engine_version": "16.4",
+      "rds_master_password": "password",
+      "rds_master_username": "admin",
+      "rds_max_capacity": 2,
+      "rds_min_capacity": 1,
+      "rds_preferred_backup_window": "07:00-09:00",
+      "rds_preferred_maintenance_window": "sun:05:00-sun:06:00",
+      "rds_storage_encrypted": true,
+      "region": "${var.region}",
+      "security_groups": [],
+      "source": "./modules/aws_rds",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      },
+      "use_custom_kms_key_for_encryption": false
     },
     "stackgen_a2453fd3-0338-4ea2-9242-09bfae612144": {
       "assume_role_policy": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n                \"Service\": \"eks.amazonaws.com\"\n            },\n            \"Action\": \"sts:AssumeRole\"\n        }\n    ]\n}",
@@ -63,13 +98,62 @@
       }
     },
     "stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a": {
-      "assume_role_policy": "{\n\t\t\"Version\": \"2012-10-17\",\n\t\t\"Statement\":{\n\t\t\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\t\t\"Effect\": \"Allow\",\n\t\t\t\t\"Principal\": {\n\t\t\t\t\t\"Service\": \"eks.amazonaws.com\"\n\t\t\t\t}\n\t\t\t}\n\t}",
+      "assume_role_policy": "{\n\t\"Version\": \"2012-10-17\",\n\t\"Statement\": {\n\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\"Effect\": \"Allow\",\n\t\t\"Principal\": {\n\t\t\t\"Service\": \"eks.amazonaws.com\"\n\t\t}\n\t}\n}",
       "description": null,
       "force_detach_policies": true,
       "inline_policy": [],
-      "name": "stackgen_44eeb0-role",
+      "name": "platform-service-1",
       "source": "./modules/aws_iam_role",
-      "tags": null
+      "tags": {
+        "appstack": "innovaccer-govcloud",
+        "component": "stackgen_44eeb0"
+      }
+    },
+    "stackgen_ae00e0fa-4edf-4c24-be01-0b5d580b5611": {
+      "policy_actions": [
+        "secretsmanager:GetSecretValue"
+      ],
+      "policy_principal_types": "AWS",
+      "region": "${var.region}",
+      "secret_encryption_use_custom_kms_key": true,
+      "secretsmanager_automatically_after_days": null,
+      "secretsmanager_description": null,
+      "secretsmanager_recovery_window_in_days": 7,
+      "secretsmanager_rotation_lambda_arn": null,
+      "secretsmanager_secret_name": "dev-cluster-secret",
+      "secretsmanager_secret_string": "${var.secretsmanager_secret_string}",
+      "secretsmanager_version_stages": [
+        "AWSCURRENT"
+      ],
+      "source": "./modules/aws_secretsmanager",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
+    },
+    "stackgen_c0c6b506-ddbd-43ec-88d0-6bb8603792d3": {
+      "access_config": [],
+      "eks_version": null,
+      "encryption_provider_key_arn": null,
+      "endpoint_private_access": false,
+      "endpoint_public_access": true,
+      "kubernetes_network_config": [],
+      "name": "platform-staging",
+      "outpost_config": [],
+      "public_access_cidrs": [
+        "0.0.0.0/0"
+      ],
+      "region": "${var.region}",
+      "role_arn": "${module.stackgen_a2453fd3-0338-4ea2-9242-09bfae612144.arn}",
+      "security_group_ids": [],
+      "source": "./modules/aws_eks",
+      "subnet_ids": [
+        "subnet-0cf96fd8e52dc1b6a",
+        "subnet-056cd9544f0986356",
+        "subnet-00ad1b6629e548eb9"
+      ],
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      }
     }
   }
 }
