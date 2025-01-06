@@ -1,0 +1,13 @@
+{
+  "variable": {
+    "name": [
+      {
+        "default": "platform-dev",
+        "description": "Name of the cluster. Must be between 1-100 characters in length. Must begin with an alphanumeric character, and must only contain alphanumeric characters, dashes and underscores.",
+        "type": "string",
+        "nullable": false,
+        "sensitive": false
+      }
+    ]
+  }
+}
