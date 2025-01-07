@@ -1,0 +1,92 @@
+{
+  "variable": {
+    "region": [
+      {
+        "description": "The AWS region to create resources in",
+        "type": "string",
+        "default": "${var.region}"
+      }
+    ],
+    "secretsmanager_secret_name": [
+      {
+        "type": "string",
+        "description": "Specifies the friendly name of the new secret. The secret name can consist of uppercase letters, lowercase letters, digits, and any of the following characters: /_+=.@- Conflicts with name_prefix",
+        "nullable": false
+      }
+    ],
+    "secretsmanager_description": [
+      {
+        "type": "string",
+        "description": "A description of the secret.",
+        "nullable": true
+      }
+    ],
+    "secretsmanager_secret_string": [
+      {
+        "type": "string",
+        "description": "Specifies text data that you want to encrypt and store in this version of the secret.",
+        "nullable": false
+      }
+    ],
+    "secret_encryption_use_custom_kms_key": [
+      {
+        "type": "bool",
+        "description": "Whether to use a custom KMS key for encryption of secret",
+        "default": true
+      }
+    ],
+    "secretsmanager_recovery_window_in_days": [
+      {
+        "type": "number",
+        "description": "Specifies the number of days that AWS Secrets Manager waits before it can delete the secret.",
+        "default": 30
+      }
+    ],
+    "policy_actions": [
+      {
+        "type": "list(string)",
+        "description": "A list of actions to allow in the secret manager policy.",
+        "default": [
+          "secretsmanager:GetSecretValue"
+        ]
+      }
+    ],
+    "secretsmanager_version_stages": [
+      {
+        "type": "list(string)",
+        "description": "Specifies a list of staging labels that are attached to this version of the secret.",
+        "default": [
+          "AWSCURRENT"
+        ]
+      }
+    ],
+    "policy_principal_types": [
+      {
+        "default": "AWS",
+        "description": "Type of principal.",
+        "type": "string"
+      }
+    ],
+    "secretsmanager_rotation_lambda_arn": [
+      {
+        "type": "string",
+        "description": "Specifies the ARN of the Lambda function that can rotate the secret.",
+        "nullable": true
+      }
+    ],
+    "secretsmanager_automatically_after_days": [
+      {
+        "type": "number",
+        "description": "Specifies the number of days between automatic scheduled rotations of the secret.It will take affect only if `rotation_lambda_arn` value is provided.",
+        "nullable": true
+      }
+    ],
+    "tags": [
+      {
+        "type": "map(string)",
+        "description": "ey-value map of user-defined tags that are attached to the secret.",
+        "nullable": true
+      }
+    ]
+  }
+}

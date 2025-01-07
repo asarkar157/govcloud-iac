@@ -13,6 +13,7 @@ helm_ingress_b39c69a7d64a5be3ba8536d4875ad794:
     class_name: test
     default_backend_name: test
     default_backend_port: 80
+    enabled: true
     labels:
         service: myapp
     rules: []
