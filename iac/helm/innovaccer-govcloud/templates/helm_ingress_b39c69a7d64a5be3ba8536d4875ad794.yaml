@@ -1,3 +1,4 @@
+{{- if .Values.helm_ingress_b39c69a7d64a5be3ba8536d4875ad794.enabled }}
 {{- if and .Values.helm_ingress_b39c69a7d64a5be3ba8536d4875ad794.class_name (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.helm_ingress_b39c69a7d64a5be3ba8536d4875ad794.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.helm_ingress_b39c69a7d64a5be3ba8536d4875ad794.annotations "kubernetes.io/ingress.class" .Values.helm_ingress_b39c69a7d64a5be3ba8536d4875ad794.class_name}}
@@ -63,3 +64,4 @@ spec:
       {{- end }}
       {{- end }}
   {{- end }}
+{{- end }}
