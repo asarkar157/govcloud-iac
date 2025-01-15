@@ -4,7 +4,7 @@ resource "aws_iam_role" "this" {
   assume_role_policy = var.assume_role_policy
 
   dynamic "inline_policy" {
-    for_each = var.inline_policy
+    for_each = { for key, value in var.inline_policy : key => value if value["policy"] != "" } # Skip policies
     content {
       name   = inline_policy.value["name"]
       policy = inline_policy.value["policy"]
