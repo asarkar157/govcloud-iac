@@ -8,6 +8,24 @@
         "nullable": false,
         "sensitive": false
       }
+    ],
+    "secretsmanager_secret_string": [
+      {
+        "default": "default_password",
+        "description": "Specifies text data that you want to encrypt and store in this version of the secret.",
+        "type": "string",
+        "nullable": false,
+        "sensitive": false
+      }
+    ],
+    "tags": [
+      {
+        "default": {},
+        "description": "A mapping of AWS tags to assign to the bucket.",
+        "type": "map(string)",
+        "nullable": true,
+        "sensitive": false
+      }
     ]
   }
 }
