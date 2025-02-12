@@ -1,26 +1,5 @@
 {
   "module": {
-    "stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81": {
-      "block_public_access": true,
-      "bucket_name": "s3-govcloud-stackgen-poc",
-      "bucket_policy": "",
-      "enable_versioning": true,
-      "enable_website_configuration": false,
-      "source": "./modules/aws_s3",
-      "sse_algorithm": "aws:kms",
-      "tags": {
-        "appstack": "innovaccer-govcloud"
-      },
-      "website_error_document": "404.html",
-      "website_index_document": "index.html"
-    },
-    "stackgen_43c70e0a-237a-41ab-9d80-adaed265e4d7": {
-      "name": "Reader-stackgen_9bc7a0",
-      "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"1ccf7f84ccf1477586513c6d823eab810\",\n      \"Action\": [\n        \"s3:Get*\",\n        \"s3:List*\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.arn}\",\n        \"${module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.arn}/*\"\n      ]\n    }\n  ]\n}",
-      "role": "${module.stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a.name}",
-      "role_type": "Reader",
-      "source": "./modules/aws_iam_role_policy"
-    },
     "stackgen_a2453fd3-0338-4ea2-9242-09bfae612144": {
       "assume_role_policy": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n                \"Service\": \"eks.amazonaws.com\"\n            },\n            \"Action\": \"sts:AssumeRole\"\n        }\n    ]\n}",
       "description": null,
@@ -31,7 +10,7 @@
           "policy": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"eks:CreateCluster\",\n                \"eks:DescribeCluster\",\n                \"eks:DeleteCluster\",\n                \"eks:UpdateClusterConfig\",\n                \"eks:UpdateClusterVersion\"\n            ],\n            \"Resource\": \"arn:aws-us-gov:eks:us-gov-west-1:320367854157:cluster/platform-dev\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"ec2:DescribeSubnets\",\n                \"ec2:DescribeSecurityGroups\",\n                \"ec2:DescribeRouteTables\",\n                \"ec2:DescribeVpcs\",\n                \"ec2:CreateNetworkInterface\",\n                \"ec2:DescribeInstances\",\n                \"ec2:DescribeNetworkInterfaces\",\n                \"ec2:DeleteNetworkInterface\",\n                \"ec2:AttachVolume\",\n                \"ec2:DetachVolume\"\n            ],\n            \"Resource\": \"*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"elasticloadbalancing:DescribeLoadBalancers\",\n                \"elasticloadbalancing:DescribeTargetGroups\",\n                \"elasticloadbalancing:DescribeListeners\",\n                \"elasticloadbalancing:DescribeRules\",\n                \"elasticloadbalancing:RegisterTargets\",\n                \"elasticloadbalancing:DeregisterTargets\"\n            ],\n            \"Resource\": \"*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"autoscaling:DescribeAutoScalingGroups\",\n                \"autoscaling:DescribeAutoScalingInstances\",\n                \"autoscaling:DescribeLaunchConfigurations\",\n                \"autoscaling:DescribeTags\"\n            ],\n            \"Resource\": \"*\"\n        },\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"cloudwatch:PutMetricData\",\n                \"cloudwatch:GetMetricData\",\n                \"cloudwatch:GetMetricStatistics\",\n                \"cloudwatch:ListMetrics\"\n            ],\n            \"Resource\": \"*\"\n        }\n    ]\n}"
         }
       ],
-      "name": "EKSRole",
+      "name": "LLM Access Role",
       "source": "./modules/aws_iam_role",
       "tags": {
         "appstack": "innovaccer-govcloud"
@@ -62,14 +41,28 @@
         "appstack": "innovaccer-govcloud"
       }
     },
-    "stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a": {
-      "assume_role_policy": "{\n\t\t\"Version\": \"2012-10-17\",\n\t\t\"Statement\":{\n\t\t\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\t\t\"Effect\": \"Allow\",\n\t\t\t\t\"Principal\": {\n\t\t\t\t\t\"Service\": \"eks.amazonaws.com\"\n\t\t\t\t}\n\t\t\t}\n\t}",
-      "description": null,
-      "force_detach_policies": true,
-      "inline_policy": [],
-      "name": "stackgen_44eeb0-role",
-      "source": "./modules/aws_iam_role",
-      "tags": null
+    "stackgen_fe417b71-02e8-4d2c-a27f-9346efa7a794": {
+      "custom_model_kms_key_id": "",
+      "custom_model_name": "my-custom-model",
+      "customization_type": "FINE_TUNING",
+      "foundation_model_id": "amazon.titan-text-express-v1",
+      "hyperparameters": {
+        "batchSize": "8",
+        "earlyStoppingPatience": "6",
+        "earlyStoppingThreshold": "0.01",
+        "epochCount": "1",
+        "evalPercentage": "20.0",
+        "learningRate": "0.00001"
+      },
+      "job_name": "my-job",
+      "model_units": 1,
+      "output_data_config_s3_uri": "s3://sales-poc-bedrock/",
+      "role_arn": "${module.stackgen_a2453fd3-0338-4ea2-9242-09bfae612144.arn}",
+      "source": "./modules/aws_bedrock",
+      "tags": {
+        "appstack": "innovaccer-govcloud"
+      },
+      "training_data_s3_uri": "s3://sales-poc-bedrock/"
     }
   }
 }

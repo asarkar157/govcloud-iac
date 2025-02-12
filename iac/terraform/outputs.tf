@@ -1,21 +1,6 @@
 
-output "aws_iam_role_eksrole_arn" {
-  value = module.stackgen_a2453fd3-0338-4ea2-9242-09bfae612144.arn
-  sensitive = false
-}
-
-output "aws_iam_role_eksrole_name" {
-  value = module.stackgen_a2453fd3-0338-4ea2-9242-09bfae612144.name
-  sensitive = false
-}
-
-output "aws_iam_role_stackgen_44eeb0_role_arn" {
-  value = module.stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a.arn
-  sensitive = false
-}
-
-output "aws_iam_role_stackgen_44eeb0_role_name" {
-  value = module.stackgen_ac3e0c13-d2a7-59c9-82aa-fdca610df63a.name
+output "aws_bedrock_my_custom_model_arn" {
+  value = module.stackgen_fe417b71-02e8-4d2c-a27f-9346efa7a794.arn
   sensitive = false
 }
 
@@ -31,22 +16,12 @@ output "aws_eks_var_name_id" {
 }
 
 
-output "aws_s3_s3_govcloud_stackgen_poc_kms_arn" {
-  value = module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.kms_arn
+output "aws_iam_role_llm_access_role_arn" {
+  value = module.stackgen_a2453fd3-0338-4ea2-9242-09bfae612144.arn
   sensitive = false
 }
 
-output "aws_s3_s3_govcloud_stackgen_poc_arn" {
-  value = module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.arn
-  sensitive = false
-}
-
-output "aws_s3_s3_govcloud_stackgen_poc_bucket_name" {
-  value = module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.bucket_name
-  sensitive = false
-}
-
-output "aws_s3_s3_govcloud_stackgen_poc_bucket_website_endpoint" {
-  value = module.stackgen_1ccf7f84-ccf1-4775-8651-3c6d823eab81.bucket_website_endpoint
+output "aws_iam_role_llm_access_role_name" {
+  value = module.stackgen_a2453fd3-0338-4ea2-9242-09bfae612144.name
   sensitive = false
 }
